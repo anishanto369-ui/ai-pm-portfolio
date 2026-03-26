@@ -5,7 +5,7 @@ import {
 
 export default function Home() {
   return (
-    <main className="relative min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-hidden">
+    <main className="relative min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden">
       {/* Scroll-Interactive Canvas Background */}
       <CanvasSequence
         urlPattern="https://amcgxhzwjqcnkvaumtaa.supabase.co/storage/v1/object/public/hero-animation/frame_{index}_delay-0.04s.webp"
