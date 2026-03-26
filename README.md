@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anish Anto — Portfolio
 
-## Getting Started
+A Next.js 15 portfolio with a **WebGPU shader hero** (depth-parallax + dot-matrix scan effect) and a full interactive 3D scene.
 
-First, run the development server:
+## Requirements
+- Node.js 18+
+- A browser with **WebGPU support** (Chrome 113+, Edge 113+)
+  - Go to `chrome://flags` → enable "Unsafe WebGPU" if needed
+
+## Quick Start
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Run dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 3. Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Three.js r172** (WebGPU renderer + TSL shader nodes)
+- **@react-three/fiber** v9
+- **@react-three/drei** v10
+- **Framer Motion**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Shader Hero
+The hero uses:
+- `three/webgpu` — WebGPU renderer
+- `three/tsl` — Three.js Shading Language (shader graph nodes)
+- Depth-parallax effect: mouse movement shifts image based on depth map
+- Teal dot-matrix scanline animation (brand-matched)
+- Bloom post-processing
+- Smooth fade-in on load
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
+```
+app/
+  layout.tsx       — Root layout + fonts
+  page.tsx         — Main page assembly
+  globals.css      — Global styles + animations
+components/ui/
+  hero-shader.tsx  — WebGPU shader hero (main feature)
+  nav.tsx          — Sticky navigation
+  sections.tsx     — About, Skills, Projects, Experience, Certs, Contact, Footer
+  cursor.tsx       — Custom animated cursor
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- The shader requires WebGPU — it will NOT work in Firefox or Safari yet
+- The `next.config.js` includes `transpilePackages: ['three']` to handle ESM imports
+- Images are loaded from postimg CDN (the component's original textures)
+  To use your own portrait: replace `TEXTUREMAP.src` and `DEPTHMAP.src` in `hero-shader.tsx`
+  with your own image URL + a matching grayscale depth map
