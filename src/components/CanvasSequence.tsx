@@ -19,8 +19,9 @@ export default function CanvasSequence({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [useFallback, setUseFallback] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
   const [frameCount, setFrameCount] = useState(maxFrameCount);
+  const [useFallback, setUseFallback] = useState(false);
 
   const { scrollYProgress } = useScroll();
   
@@ -33,58 +34,65 @@ export default function CanvasSequence({
   const frameIndex = useTransform(
     smoothProgress,
     [0, 1],
-    [0, frameCount - 1]
+    [0, frameCount > 0 ? frameCount - 1 : 0]
   );
 
   useEffect(() => {
-    // 1. Device Detection: Cap at 60 frames for mobile to load 3x faster
-    const isMobile = window.innerWidth < 768;
-    const targetFrames = isMobile ? Math.min(60, maxFrameCount) : maxFrameCount;
+    // 1. Dual-Track Payload Frame Logic
+    // iPad/Mobile (<1024px): 80 Frames. Desktop: Full 192 Frames.
+    const isMobileTrack = window.innerWidth < 1024;
+    const targetFrames = isMobileTrack ? Math.min(80, maxFrameCount) : maxFrameCount;
     setFrameCount(targetFrames);
 
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
     let fallbackTriggered = false;
 
-    // 2. Fallback Mechanism: 5-second hard timeout
-    const fallbackTimer = setTimeout(() => {
-      if (loadedCount < targetFrames * 0.2) { 
-        setUseFallback(true);
-        setIsLoading(false);
-        fallbackTriggered = true;
-      } else {
-        setIsLoading(false); // Let it finish softly in the background
-      }
-    }, 5000);
+    // Safety timeout: 8 seconds network timeout before unblocking the UI softly
+    const safetyTimeout = setTimeout(() => {
+       if (loadedCount < targetFrames * 0.5) {
+          setUseFallback(true);
+          setIsLoading(false);
+          fallbackTriggered = true;
+       } else {
+          setIsLoading(false); // Let it finish loading softly underneath
+       }
+    }, 8000);
 
     const loadImage = (index: number) => {
       if (fallbackTriggered) return;
-      
       const img = new Image();
       const frameNumber = index + startIndex;
       const paddedIndex = frameNumber.toString().padStart(padding, '0');
-      
-      // Images are naturally WebP compressed from Supabase
       img.src = urlPattern.replace("{index}", paddedIndex);
+      
       img.onload = () => {
         if (fallbackTriggered) return;
         loadedCount++;
+        
+        // 2. Exact loading percentage mapping
+        const percent = Math.floor((loadedCount / targetFrames) * 100);
+        setLoadProgress(percent);
+
         if (loadedCount === targetFrames) {
-          clearTimeout(fallbackTimer);
+          clearTimeout(safetyTimeout);
           setIsLoading(false);
         }
       };
+      
+      // Slot strictly at exact index to preserve cinematic scroll alignment
       loadedImages[index] = img;
     };
 
     for (let i = 0; i < targetFrames; i++) {
       loadImage(i);
     }
+    
     setImages(loadedImages);
-
-    return () => clearTimeout(fallbackTimer);
+    return () => clearTimeout(safetyTimeout);
   }, [urlPattern, maxFrameCount, startIndex, padding]);
 
+  // 3. Desktop & Mobile Shared Rendering Engine
   useEffect(() => {
     if (useFallback) return;
     const canvas = canvasRef.current;
@@ -96,6 +104,7 @@ export default function CanvasSequence({
       if (images.length === 0) return;
       const currentFrame = Math.floor(frameIndex.get());
       const safeIndex = Math.min(Math.max(currentFrame, 0), frameCount - 1);
+      
       const img = images[safeIndex];
 
       if (img && img.complete) {
@@ -132,7 +141,6 @@ export default function CanvasSequence({
       requestAnimationFrame(render);
     });
     
-    // Auto-render when the first frame loads safely
     const initialRenderTimer = setInterval(() => {
       if (images[0] && images[0].complete) {
         render();
@@ -157,16 +165,14 @@ export default function CanvasSequence({
     };
   }, [images, frameIndex, frameCount, useFallback]);
 
-  // Use the very first frame as the fallback image
   const fallbackImageUrl = urlPattern.replace("{index}", startIndex.toString().padStart(padding, '0'));
 
   return (
-    <div className="fixed inset-0 z-0 w-full h-screen overflow-hidden bg-black">
+    <div className="fixed inset-0 z-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center">
       {useFallback ? (
-        <img 
-          src={fallbackImageUrl} 
-          alt="Cinematic Portfolio Background" 
-          className="w-full h-full object-cover" 
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100"
+          style={{ backgroundImage: `url(${fallbackImageUrl})` }}
         />
       ) : (
         <canvas
@@ -176,10 +182,16 @@ export default function CanvasSequence({
       )}
       
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-50 backdrop-blur-md">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-50 backdrop-blur-xl">
            <div className="flex flex-col items-center gap-6">
-              <div className="w-16 h-16 border-4 border-white/10 border-t-white rounded-full animate-spin shadow-[0_0_30px_rgba(255,255,255,0.2)]" />
-              <p className="text-[10px] md:text-xs font-mono font-bold tracking-[0.3em] uppercase opacity-70">Initializing Cinematic Core</p>
+              <div className="relative flex items-center justify-center w-24 h-24">
+                 <div className="absolute inset-0 border-4 border-orange-500/20 border-t-orange-500 rounded-full animate-spin shadow-[0_0_40px_rgba(249,115,22,0.4)]" />
+                 <span className="font-mono text-orange-500 font-bold text-sm drop-shadow-md">{loadProgress}%</span>
+              </div>
+              <p className="text-[10px] md:text-xs font-mono font-bold tracking-[0.4em] uppercase text-orange-500/80 drop-shadow-md text-center max-w-[200px] md:max-w-xs">
+                 Loading Cinematic Engine
+                 <span className="block mt-3 opacity-50 text-[8px] tracking-[0.2em]">Fetching {frameCount} optimized WebP boundary frames</span>
+              </p>
            </div>
         </div>
       )}
