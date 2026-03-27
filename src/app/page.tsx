@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CanvasSequence from "@/components/CanvasSequence";
+import InteractivePortfolioSuite from "@/components/InteractivePortfolioSuite";
 import { 
   MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
 } from "lucide-react";
@@ -283,6 +284,9 @@ export default function Home() {
              </div>
           </div>
         </section>
+
+        {/* --- INTERACTIVE SUITE (TERMINAL, BENTO, SLIDER) --- */}
+        <InteractivePortfolioSuite />
 
         {/* --- 5. SKILLS SECTION --- */}
         <motion.section 
