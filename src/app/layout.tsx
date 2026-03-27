@@ -19,7 +19,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Anish Anto | AI Product Manager",
-  description: "AI Product Manager & Full-Stack AI Builder specializing in LLM production systems and autonomous agents.",
+  description: "Anthropic-certified AI Product Manager specializing in RAG, Agentic Workflows, and UAE Compliance.",
 };
 
 export default function RootLayout({

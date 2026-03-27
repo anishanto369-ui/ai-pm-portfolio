@@ -111,10 +111,10 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 w-full mt-1">
-               <a href="/public/Anish_Anto_AI_Product_Manager_ATS.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white">
+               <a href="/resume.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white">
                  <Download className="w-3.5 h-3.5" /> CV
                </a>
-               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg">
+               <a href="https://wa.me/971521379125?text=Hi%20Anish,%20I%20saw%20your%20AI%20PM%20portfolio%20and%20would%20like%20to%20discuss%20your%20experience%20with%20Qanun%20AI." target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg">
                  Hire Me
                </a>
             </div>
@@ -159,7 +159,7 @@ export default function Home() {
             {/* Column 4: Symmetrical Actions */}
             <div className="flex items-center gap-3 lg:gap-4 shrink-0">
                <a 
-                 href="/public/Anish_Anto_AI_Product_Manager_ATS.pdf" 
+                 href="/resume.pdf" 
                  download
                  className="h-11 lg:h-12 px-5 lg:px-6 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center shadow-[0_0_15px_rgba(249,115,22,0.4)]"
                >
@@ -167,7 +167,7 @@ export default function Home() {
                </a>
 
                <a 
-                 href="https://wa.me/971521379125?text=Hi%20Anish,%20I%20saw%20your%20portfolio..." 
+                 href="https://wa.me/971521379125?text=Hi%20Anish,%20I%20saw%20your%20AI%20PM%20portfolio%20and%20would%20like%20to%20discuss%20your%20experience%20with%20Qanun%20AI." 
                  target="_blank"
                  className="h-11 lg:h-12 px-7 lg:px-8 bg-white text-black text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl hover:bg-white/90 hover:scale-105 active:scale-95 transition-all flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                >
