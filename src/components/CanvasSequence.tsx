@@ -44,11 +44,11 @@ export default function CanvasSequence({
   useEffect(() => {
     // 1. Array Constraints
     const isMobileTrack = window.innerWidth < 1024;
-    const targetFrames = isMobileTrack ? Math.min(80, maxFrameCount) : maxFrameCount;
+    const targetFrames = maxFrameCount; // Execute all 192 frames across all viewports
     setFrameCount(targetFrames);
 
-    // 2. Lazy-Loading Threshold (Unblock desktop UI at 40 frames)
-    const unlockThreshold = isMobileTrack ? targetFrames : Math.min(40, targetFrames);
+    // 2. Lazy-Loading Threshold (Unblock UI heavily at 40 frames on all devices)
+    const unlockThreshold = Math.min(40, targetFrames);
 
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
@@ -192,7 +192,7 @@ export default function CanvasSequence({
       <canvas
         ref={canvasRef}
         // scale-[1.05] & translate-y-[2%] push the bottom-right watermark decisively off-screen
-        className="w-full h-full object-cover transform scale-[1.05] translate-y-[2%] origin-center"
+        className="w-full h-full object-cover transform scale-[1.05] translate-y-[2%] origin-center touch-none"
       />
       
       {isLoading && (

@@ -8,7 +8,7 @@ import AudioToggle from "@/components/AudioToggle";
 import { 
   MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
 } from "lucide-react";
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView, Variants, useScroll, useTransform } from "framer-motion";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 50 },
@@ -87,9 +87,21 @@ function ProblemSolutionToggle() {
 
 export default function Home() {
   const [isEngineReady, setIsEngineReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const { scrollYProgress } = useScroll();
+  // Frame 190 / 192 = ~0.989. Lumora stays hidden on mobile until exactly hitting this threshold.
+  const lumoraMobileOpacity = useTransform(scrollYProgress, [0.985, 0.995], [0, 1]);
 
   return (
-    <main className="relative min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
+    <main className="relative min-h-[2000vh] md:min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
       {/* Scroll-Interactive Canvas Background */}
       <CanvasSequence
         urlPattern="https://amcgxhzwjqcnkvaumtaa.supabase.co/storage/v1/object/public/hero-animation/frame_{index}_delay-0.04s.webp"
@@ -100,7 +112,10 @@ export default function Home() {
       />
 
       {/* LUMORA AESTHETIC CONTACT CARD */}
-      <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.05)] w-[92%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all">
+      <motion.div 
+         style={{ opacity: isMobile ? lumoraMobileOpacity : 1 }}
+         className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.05)] w-[92%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all"
+      >
          
          {/* --- MOBILE VIEW: Vertical Stack --- */}
          <div className="flex flex-col md:hidden w-full items-center gap-3 py-1 relative">
@@ -186,7 +201,7 @@ export default function Home() {
                </a>
             </div>
          </div>
-      </div>
+      </motion.div>
 
       {/* CONTENT LAYERS - z-10 */}
       <div className="relative z-10 flex flex-col items-center w-full">
