@@ -187,8 +187,8 @@ export default function CanvasSequence({
     <div className="fixed inset-0 z-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center">
       <canvas
         ref={canvasRef}
-        // scale-[1.08] crops out the "Nano Banana" watermark cleanly
-        className="w-full h-full object-cover transform scale-[1.08] origin-center"
+        // scale-[1.05] & translate-y-[2%] push the bottom-right watermark decisively off-screen
+        className="w-full h-full object-cover transform scale-[1.05] translate-y-[2%] origin-center"
       />
       
       {isLoading && (

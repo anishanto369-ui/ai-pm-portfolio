@@ -94,90 +94,84 @@ export default function Home() {
       />
 
       {/* LUMORA AESTHETIC CONTACT CARD */}
-      <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col md:flex-row items-center justify-between p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-full border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.05)] w-[95%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all">
+      <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.05)] w-[92%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all">
          
-         {/* --- MOBILE VIEW: Thumb-Optimized Taller Hitbox --- */}
-         <div className="flex md:hidden w-full items-center justify-between px-3 py-1.5">
-            <div className="flex flex-col items-start w-1/3">
-               <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-sm drop-shadow-md whitespace-nowrap">Anish Anto</span>
+         {/* --- MOBILE VIEW: Vertical Stack --- */}
+         <div className="flex flex-col md:hidden w-full items-center gap-3 py-1">
+            <div className="flex flex-col items-center">
+               <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-lg drop-shadow-md leading-none">Anish Anto</span>
+               <span className="text-[10px] text-green-400 font-mono tracking-[0.2em] uppercase mt-1">Available Immediately</span>
             </div>
             
-            <div className="flex items-center gap-1.5 overflow-x-auto w-2/3 justify-end hide-scrollbar py-1">
-               <a 
-                 href="https://linkedin.com/in/anish-anto-ai" 
-                 target="_blank"
-                 className="p-3 bg-white/10 border border-white/20 text-white rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center shrink-0"
-               >
-                  <Linkedin className="w-3.5 h-3.5" />
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 w-full text-[10px] text-white/80 font-mono">
+               <a href="https://maps.google.com/?q=Ras+Al+Khaimah" className="flex items-center gap-1.5"><MapPin className="w-3 h-3 opacity-70" /> Ras Al Khaimah</a>
+               <a href="tel:+971521379125" className="flex items-center gap-1.5"><Phone className="w-3 h-3 opacity-70" /> +971 521 379 125</a>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 w-full mt-1">
+               <a href="/public/Anish_Anto_AI_Product_Manager_ATS.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white">
+                 <Download className="w-3.5 h-3.5" /> CV
                </a>
-               <a 
-                 href="/Anish_Anto_AI_Product_Manager_ATS.pdf" 
-                 download
-                 className="px-3 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] font-bold font-mono tracking-widest uppercase rounded-2xl shadow-lg active:scale-95 transition-all flex items-center gap-1.5 shrink-0"
-               >
-                  <Download className="w-3 h-3" /> CV
-               </a>
-               <a 
-                 href="https://wa.me/971521379125" 
-                 target="_blank"
-                 className="px-4 py-3 bg-white text-black text-[9px] font-bold font-mono tracking-widest uppercase rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.3)] active:scale-95 transition-all flex items-center justify-center shrink-0"
-               >
-                  Hire Me
+               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg">
+                 Hire Me
                </a>
             </div>
          </div>
 
          {/* --- TABLET / LAPTOP VIEW --- */}
-         <div className="hidden md:flex items-center gap-6 lg:gap-10 w-full md:w-auto">
-            <div className="text-left">
-               <h3 className="text-xl font-serif font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-lg">Anish Anto</h3>
-               <p className="text-[10px] font-mono text-green-400 tracking-[0.2em] uppercase mt-1 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">Available Immediately</p>
+         <div className="hidden md:flex flex-row items-center justify-between w-full h-full gap-4 lg:gap-8">
+            
+            {/* Column 1: Name & Status */}
+            <div className="flex flex-col justify-center text-left min-w-max">
+               <h3 className="text-xl lg:text-2xl font-serif font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-lg leading-none">Anish Anto</h3>
+               <p className="text-[9px] lg:text-[10px] font-mono text-green-400 tracking-[0.2em] uppercase mt-2 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">Available Immediately</p>
             </div>
             
-            <div className="w-px h-10 bg-white/20" />
+            <div className="w-px h-10 bg-white/20 shrink-0" />
             
-            <div className="flex flex-col xl:flex-row items-start xl:items-center gap-2 xl:gap-8 text-[10px] lg:text-xs font-mono text-white/80">
-               <a href="https://maps.google.com/?q=Ras+Al+Khaimah" target="_blank" className="flex items-center gap-2 hover:text-orange-400 transition-colors">
-                 <MapPin className="w-3 h-3 lg:w-4 lg:h-4 opacity-70" /> Ras Al Khaimah, UAE
+            {/* Column 2: Location & Phone */}
+            <div className="flex flex-col justify-center gap-2 text-[10px] lg:text-xs font-mono text-white/80 min-w-max">
+               <a href="https://maps.google.com/?q=Ras+Al+Khaimah" target="_blank" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
+                 <MapPin className="w-3.5 h-3.5 opacity-70" /> Ras Al Khaimah, UAE
                </a>
-               <a href="tel:+971521379125" className="flex items-center gap-2 hover:text-orange-400 transition-colors">
-                 <Phone className="w-3 h-3 lg:w-4 lg:h-4 opacity-70" /> +971 521 379 125
-               </a>
-            </div>
-            
-            <div className="hidden lg:block w-px h-10 bg-white/20" />
-            
-            <div className="hidden lg:flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/50 font-mono">
-               UAE Visit Visa | Indian National
-            </div>
-         </div>
-         
-         <div className="hidden md:flex items-center gap-3 lg:gap-4 w-full md:w-auto mt-4 md:mt-0 justify-center">
-            <div className="flex gap-2 mr-2">
-               <a href="mailto:anishanto369@gmail.com" className="p-2 lg:p-3 bg-white/10 rounded-full hover:bg-orange-500/50 transition-all flex items-center justify-center text-white hover:scale-110 active:scale-95">
-                  <Mail className="w-4 h-4" />
-               </a>
-               <a href="https://linkedin.com/in/anish-anto-ai" target="_blank" className="p-2 lg:p-3 bg-white/10 rounded-full hover:bg-orange-500/50 transition-all flex items-center justify-center text-white hover:scale-110 active:scale-95">
-                  <Linkedin className="w-4 h-4" />
+               <a href="tel:+971521379125" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
+                 <Phone className="w-3.5 h-3.5 opacity-70" /> +971 521 379 125
                </a>
             </div>
             
-            <a 
-              href="/Anish_Anto_AI_Product_Manager_ATS.pdf" 
-              download
-              className="px-4 lg:px-6 py-2.5 lg:py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] lg:text-xs font-bold font-mono tracking-widest uppercase rounded-full hover:scale-105 active:scale-95 transition-all text-center flex items-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
-            >
-               <Download className="w-3 h-3 lg:w-4 lg:h-4" />
-               <span>Download ATS Resume</span>
-            </a>
+            <div className="w-px h-10 bg-white/20 shrink-0" />
+            
+            {/* Column 3: Visa & Nationality + Socials */}
+            <div className="flex flex-col items-start justify-center gap-2.5 text-[9px] lg:text-[10px] uppercase tracking-widest text-white/60 font-mono min-w-max">
+               <div className="flex items-center gap-2">
+                  UAE Visit Visa <span className="text-white/20">|</span> Indian
+               </div>
+               <div className="flex items-center gap-3">
+                  <a href="mailto:anishanto369@gmail.com" className="hover:text-orange-400 text-white/80 transition-colors"><Mail className="w-4 h-4" /></a>
+                  <a href="https://linkedin.com/in/anish-anto-ai" target="_blank" className="hover:text-orange-400 text-white/80 transition-colors"><Linkedin className="w-4 h-4" /></a>
+               </div>
+            </div>
 
-            <a 
-              href="https://wa.me/971521379125?text=Hi%20Anish,%20I%20saw%20your%20portfolio..." 
-              target="_blank"
-              className="px-6 lg:px-8 py-2.5 lg:py-3 bg-white text-black text-[10px] lg:text-xs font-bold font-mono tracking-widest uppercase rounded-full hover:bg-white/90 hover:scale-105 active:scale-95 transition-all text-center flex items-center shadow-[0_0_20px_rgba(255,255,255,0.2)] ml-2"
-            >
-               Hire Me
-            </a>
+            <div className="w-px h-10 bg-white/20 shrink-0 hidden lg:block" />
+
+            {/* Column 4: Symmetrical Actions */}
+            <div className="flex items-center gap-3 lg:gap-4 shrink-0">
+               <a 
+                 href="/public/Anish_Anto_AI_Product_Manager_ATS.pdf" 
+                 download
+                 className="h-11 lg:h-12 px-5 lg:px-6 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+               >
+                  <Download className="w-3.5 h-3.5 mr-2" /> Resume
+               </a>
+
+               <a 
+                 href="https://wa.me/971521379125?text=Hi%20Anish,%20I%20saw%20your%20portfolio..." 
+                 target="_blank"
+                 className="h-11 lg:h-12 px-7 lg:px-8 bg-white text-black text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl hover:bg-white/90 hover:scale-105 active:scale-95 transition-all flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+               >
+                  Hire Me
+               </a>
+            </div>
          </div>
       </div>
 
@@ -185,7 +179,7 @@ export default function Home() {
       <div className="relative z-10 flex flex-col items-center w-full">
         
         {/* --- 1. HERO SECTION --- */}
-        <section className="flex h-screen w-full flex-col items-center justify-center px-4 md:px-6 text-center">
+        <section className="flex h-screen w-full flex-col items-center justify-center px-4 md:px-6 text-center overflow-hidden">
           <h1 className="text-5xl md:text-7xl lg:text-9xl tracking-tighter leading-[0.9] font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-[0_0_40px_rgba(0,0,0,0.8)] break-words w-full text-center">
             Anish Anto
           </h1>
