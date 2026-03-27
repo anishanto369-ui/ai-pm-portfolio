@@ -131,32 +131,28 @@ export default function Home() {
             
             <div className="w-px h-10 bg-white/20 shrink-0" />
             
-            {/* Column 2: Location & Phone */}
-            <div className="flex flex-col justify-center gap-2 text-[10px] lg:text-xs font-mono text-white/80 min-w-max">
-               <a href="https://maps.google.com/?q=Ras+Al+Khaimah" target="_blank" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
-                 <MapPin className="w-3.5 h-3.5 opacity-70" /> Ras Al Khaimah, UAE
-               </a>
-               <a href="tel:+971521379125" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
-                 <Phone className="w-3.5 h-3.5 opacity-70" /> +971 521 379 125
-               </a>
-            </div>
-            
-            <div className="w-px h-10 bg-white/20 shrink-0" />
-            
-            {/* Column 3: Visa & Nationality + Socials */}
-            <div className="flex flex-col items-start justify-center gap-2.5 text-[9px] lg:text-[10px] uppercase tracking-widest text-white/60 font-mono min-w-max">
-               <div className="flex items-center gap-2">
-                  UAE Visit Visa <span className="text-white/20">|</span> Indian
+            {/* Column 2: Location, Phone & Social Links */}
+            <div className="flex items-center gap-5 lg:gap-8 min-w-max">
+               <div className="flex flex-col justify-center gap-2 text-[10px] lg:text-xs font-mono text-white/80">
+                  <a href="https://maps.google.com/?q=Ras+Al+Khaimah" target="_blank" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
+                    <MapPin className="w-3.5 h-3.5 opacity-70" /> Ras Al Khaimah, UAE
+                  </a>
+                  <a href="tel:+971521379125" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
+                    <Phone className="w-3.5 h-3.5 opacity-70" /> +971 521 379 125
+                  </a>
                </div>
+               
+               <div className="hidden lg:block w-px h-6 bg-white/10 shrink-0" />
+               
                <div className="flex items-center gap-3">
-                  <a href="mailto:anishanto369@gmail.com" className="hover:text-orange-400 text-white/80 transition-colors"><Mail className="w-4 h-4" /></a>
-                  <a href="https://linkedin.com/in/anish-anto-ai" target="_blank" className="hover:text-orange-400 text-white/80 transition-colors"><Linkedin className="w-4 h-4" /></a>
+                  <a href="mailto:anishanto369@gmail.com" className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-orange-500/20 hover:border-orange-500/30 hover:text-orange-400 text-white/80 transition-all shadow-md active:scale-95"><Mail className="w-4 h-4" /></a>
+                  <a href="https://linkedin.com/in/anish-anto-ai" target="_blank" className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-orange-500/20 hover:border-orange-500/30 hover:text-orange-400 text-white/80 transition-all shadow-md active:scale-95"><Linkedin className="w-4 h-4" /></a>
                </div>
             </div>
 
-            <div className="w-px h-10 bg-white/20 shrink-0 hidden lg:block" />
+            <div className="w-px h-10 bg-white/20 shrink-0 hidden xl:block" />
 
-            {/* Column 4: Symmetrical Actions */}
+            {/* Column 3: Symmetrical Actions */}
             <div className="flex items-center gap-3 lg:gap-4 shrink-0">
                <a 
                  href="/resume.pdf" 
