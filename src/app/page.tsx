@@ -5,14 +5,14 @@ import CanvasSequence from "@/components/CanvasSequence";
 import { 
   MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
 } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    transition: { duration: 0.8, ease: "easeOut" } 
   }
 };
 

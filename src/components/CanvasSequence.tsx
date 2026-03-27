@@ -86,13 +86,22 @@ export default function CanvasSequence({
       loadImage(i);
     }
 
-    // Lazy load the remaining frames asynchronously
+    // Lazy load the remaining frames asynchronously in staggered micro-batches to prevent main-thread locking
     if (targetFrames > unlockThreshold) {
-       setTimeout(() => {
-          for (let i = unlockThreshold; i < targetFrames; i++) {
+       let currentIndex = unlockThreshold;
+       
+       const loadNextBatch = () => {
+          if (currentIndex >= targetFrames) return;
+          
+          const end = Math.min(currentIndex + 5, targetFrames);
+          for (let i = currentIndex; i < end; i++) {
             loadImage(i);
           }
-       }, 500); // 500ms delay to give the browser thread breathing room
+          currentIndex = end;
+          setTimeout(loadNextBatch, 50); // 50ms delay between 5-frame chunks to let DOM paint smoothly
+       };
+
+       setTimeout(loadNextBatch, 500); 
     }
     
     setImages(loadedImages);
