@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import CanvasSequence from "@/components/CanvasSequence";
 import InteractivePortfolioSuite from "@/components/InteractivePortfolioSuite";
 import VisionCloser from "@/components/VisionCloser";
+import AudioToggle from "@/components/AudioToggle";
 import { 
   MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
 } from "lucide-react";
@@ -85,6 +86,8 @@ function ProblemSolutionToggle() {
 
 
 export default function Home() {
+  const [isEngineReady, setIsEngineReady] = useState(false);
+
   return (
     <main className="relative min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
       {/* Scroll-Interactive Canvas Background */}
@@ -93,13 +96,18 @@ export default function Home() {
         frameCount={192}
         startIndex={0}
         padding={3}
+        onLoadComplete={() => setIsEngineReady(true)}
       />
 
       {/* LUMORA AESTHETIC CONTACT CARD */}
       <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.05)] w-[92%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all">
          
          {/* --- MOBILE VIEW: Vertical Stack --- */}
-         <div className="flex flex-col md:hidden w-full items-center gap-3 py-1">
+         <div className="flex flex-col md:hidden w-full items-center gap-3 py-1 relative">
+            <div className="absolute top-0 left-0">
+               <AudioToggle isReady={isEngineReady} />
+            </div>
+
             <div className="flex flex-col items-center">
                <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-lg drop-shadow-md leading-none">Anish Anto</span>
                <span className="text-[10px] text-green-400 font-mono tracking-[0.2em] uppercase mt-1">Available Immediately</span>
@@ -123,6 +131,13 @@ export default function Home() {
          {/* --- TABLET / LAPTOP VIEW --- */}
          <div className="hidden md:flex flex-row items-center justify-between w-full h-full gap-4 lg:gap-8">
             
+            {/* Column 0: Audio Engine */}
+            <div className="flex items-center justify-center min-w-max mr-1 lg:mr-2">
+               <AudioToggle isReady={isEngineReady} />
+            </div>
+
+            <div className="w-px h-10 bg-white/20 shrink-0" />
+
             {/* Column 1: Name & Status */}
             <div className="flex flex-col justify-center text-left min-w-max">
                <h3 className="text-xl lg:text-2xl font-serif font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-lg leading-none">Anish Anto</h3>

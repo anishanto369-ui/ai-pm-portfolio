@@ -8,6 +8,7 @@ interface CanvasSequenceProps {
   frameCount: number;
   startIndex?: number;
   padding?: number;
+  onLoadComplete?: () => void;
 }
 
 export default function CanvasSequence({
@@ -15,6 +16,7 @@ export default function CanvasSequence({
   frameCount: maxFrameCount,
   startIndex = 0,
   padding = 3,
+  onLoadComplete,
 }: CanvasSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -54,6 +56,7 @@ export default function CanvasSequence({
     // Safety Force-Unlock
     const safetyTimeout = setTimeout(() => {
        setIsLoading(false);
+       onLoadComplete?.();
     }, 8000);
 
     const loadImage = (index: number) => {
@@ -75,6 +78,7 @@ export default function CanvasSequence({
         if (loadedCount === unlockThreshold) {
           clearTimeout(safetyTimeout);
           setIsLoading(false);
+          onLoadComplete?.();
         }
       };
       
