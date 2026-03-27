@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasSequence from "@/components/CanvasSequence";
 import InteractivePortfolioSuite from "@/components/InteractivePortfolioSuite";
+import VisionCloser from "@/components/VisionCloser";
 import { 
   MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
 } from "lucide-react";
@@ -447,8 +448,11 @@ export default function Home() {
           </div>
         </motion.section>
 
+        {/* --- VISION & ROI ROADMAP --- */}
+        <VisionCloser />
+
         {/* --- 7. FOOTER SPACER --- */}
-        <footer className="flex min-h-[40vh] md:min-h-[30vh] w-full flex-col items-center justify-center px-6 pb-64 md:pb-48 bg-black">
+        <footer className="flex min-h-[40vh] md:min-h-[30vh] w-full flex-col items-center justify-center px-6 pb-64 md:pb-48 bg-black z-10 relative relative">
           {/* Spacer to avoid collision with contact card at the bottom */}
         </footer>
       </div>
