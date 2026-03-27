@@ -43,6 +43,45 @@ function AnimatedMetric({ value, suffix = "%" }: { value: number; suffix?: strin
   return <span ref={ref} className="tabular-nums">{count}{suffix}</span>;
 }
 
+function ProblemSolutionToggle() {
+  const [showSolution, setShowSolution] = useState(false);
+
+  return (
+    <div className="w-full max-w-lg mt-8 bg-black/40 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+      <div className="flex w-full p-1 bg-black/60 border-b border-white/5">
+        <button 
+          onClick={() => setShowSolution(false)}
+          className={`flex-1 py-2 md:py-2.5 text-[9px] md:text-[10px] font-mono font-bold tracking-widest uppercase rounded-xl transition-all ${
+             !showSolution ? 'bg-red-500/20 text-red-400 border border-red-500/30 shadow-[0_0_15px_rgba(248,113,113,0.2)]' : 'text-white/40 hover:text-white/80'
+          }`}
+        >
+          The Problem
+        </button>
+        <button 
+          onClick={() => setShowSolution(true)}
+          className={`flex-1 py-2 md:py-2.5 text-[9px] md:text-[10px] font-mono font-bold tracking-widest uppercase rounded-xl transition-all ${
+             showSolution ? 'bg-green-500/20 text-green-400 border border-green-500/30 shadow-[0_0_15px_rgba(74,222,128,0.2)]' : 'text-white/40 hover:text-white/80'
+          }`}
+        >
+          The ROI Solution
+        </button>
+      </div>
+      <div className="p-5 md:p-6 text-center md:text-left min-h-[110px] flex items-center justify-center md:justify-start transition-all duration-300">
+        {!showSolution ? (
+           <p className="text-white/80 font-serif text-sm md:text-base leading-relaxed drop-shadow-md">
+             "<span className="text-red-400 font-bold">Manual UAE legal reviews take 4+ hours per document</span>, creating immense throughput bottlenecks."
+           </p>
+        ) : (
+           <p className="text-white/95 font-serif text-sm md:text-base leading-relaxed drop-shadow-md">
+             "<strong className="text-green-400">Qanun AI reduces this to 45 seconds</strong> while strictly maintaining <span className="underline decoration-green-500/50 underline-offset-4">100% FTA & CBUAE data residency compliance.</span>"
+           </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
 export default function Home() {
   return (
     <main className="relative min-h-[1400vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
@@ -63,7 +102,7 @@ export default function Home() {
                <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-sm drop-shadow-md whitespace-nowrap">Anish Anto</span>
             </div>
             
-            <div className="flex items-center gap-1.5 overflow-x-auto w-2/3 justify-end hide-scrollbar">
+            <div className="flex items-center gap-1.5 overflow-x-auto w-2/3 justify-end hide-scrollbar py-1">
                <a 
                  href="https://linkedin.com/in/anish-anto-ai" 
                  target="_blank"
@@ -72,7 +111,7 @@ export default function Home() {
                   <Linkedin className="w-3.5 h-3.5" />
                </a>
                <a 
-                 href="/Anish_Anto_Resume.pdf" 
+                 href="/Anish_Anto_AI_Product_Manager_ATS.pdf" 
                  download
                  className="px-3 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] font-bold font-mono tracking-widest uppercase rounded-2xl shadow-lg active:scale-95 transition-all flex items-center gap-1.5 shrink-0"
                >
@@ -124,7 +163,7 @@ export default function Home() {
             </div>
             
             <a 
-              href="/Anish_Anto_Resume.pdf" 
+              href="/Anish_Anto_AI_Product_Manager_ATS.pdf" 
               download
               className="px-4 lg:px-6 py-2.5 lg:py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] lg:text-xs font-bold font-mono tracking-widest uppercase rounded-full hover:scale-105 active:scale-95 transition-all text-center flex items-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
             >
@@ -164,7 +203,7 @@ export default function Home() {
         </section>
 
         {/* --- 2. QANUN AI --- */}
-        <section className="flex h-screen w-full items-center justify-center md:justify-start px-6 md:px-16 lg:px-32 xl:px-48">
+        <section className="flex min-h-screen w-full items-center justify-center md:justify-start px-6 md:px-16 lg:px-32 xl:px-48 py-24">
           <div className="max-w-4xl space-y-4 md:space-y-6 text-center md:text-left w-full flex flex-col items-center md:items-start">
             
             <div className="flex flex-col md:flex-row items-center gap-3">
@@ -186,18 +225,15 @@ export default function Home() {
                <p className="text-orange-400 font-mono text-[9px] md:text-[11px] lg:text-sm tracking-[0.2em] uppercase font-bold drop-shadow-md">Engineered for FTA & CBUAE AML Compliance.</p>
             </div>
 
-            <p className="text-xl md:text-3xl lg:text-4xl font-light leading-tight text-white/95 drop-shadow-xl max-w-3xl pt-2">
-              Locally-hosted UAE Finance & Compliance AI. <br className="hidden md:block"/>Built with <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LLAMA 3.3</span> and <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LangGraph</span> for air-gapped UAE compliance.
+            <p className="text-xl md:text-3xl lg:text-4xl font-light leading-tight text-white/95 drop-shadow-xl pt-2">
+              Built with <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LLAMA 3.3</span> and <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LangGraph</span> for air-gapped sovereign compliance.
             </p>
-            <div className="flex flex-col gap-3 md:gap-4 font-mono text-[10px] md:text-xs lg:text-sm uppercase tracking-widest pt-2 md:pt-4 w-full">
-              <div className="flex items-center justify-center md:justify-start gap-3 text-white drop-shadow-lg font-bold">
-                 <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-orange-500 rounded-full shrink-0" /> <AnimatedMetric value={70} /> reduction in manual legal review
-              </div>
+
+            <ProblemSolutionToggle />
+
+            <div className="flex flex-col gap-3 md:gap-4 font-mono text-[10px] md:text-xs lg:text-sm uppercase tracking-widest pt-4 md:pt-6 w-full">
               <div className="flex items-center justify-center md:justify-start gap-3 text-white drop-shadow-lg font-bold">
                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-orange-500 rounded-full shrink-0" /> <AnimatedMetric value={80} /> reduction in manual processing
-              </div>
-              <div className="flex items-center justify-center md:justify-start gap-3 text-white drop-shadow-lg font-bold">
-                 <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-orange-500 rounded-full shrink-0" /> <AnimatedMetric value={100} /> data residency
               </div>
             </div>
           </div>
@@ -234,8 +270,8 @@ export default function Home() {
               <span className="group relative inline-block cursor-help ml-2 md:ml-3">
                  <Info className="w-5 h-5 md:w-6 md:h-6 text-orange-500/50 hover:text-orange-400 transition-colors inline drop-shadow-md" />
                  <span className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-64 md:w-72 p-4 bg-black/95 backdrop-blur-2xl border border-white/20 rounded-2xl text-[10px] md:text-xs font-mono text-white/90 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] leading-relaxed text-left flex flex-col gap-2">
-                    <strong className="text-orange-400 tracking-widest uppercase text-[8px] md:text-[10px] border-b border-white/10 pb-2">Technical Deep Dive</strong>
-                    Utilizes LangGraph to structure multi-actor state management, enforcing deterministic 'Reason & Act' validation loops that cross-verify LLM outputs against real-time web grounding before human handover.
+                    <strong className="text-orange-400 tracking-widest uppercase text-[8px] md:text-[10px] border-b border-white/10 pb-2">Live Agent Status</strong>
+                    Status: Self-Correcting Reasoning Loop Active | <AnimatedMetric value={40} /> reduction in hallucination via LangGraph validation.
                  </span>
               </span>
             </p>
