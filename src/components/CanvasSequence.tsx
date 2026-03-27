@@ -81,24 +81,26 @@ export default function CanvasSequence({
       loadedImages[index] = img;
     };
 
-    // Load initial essential batch
+    // Load initial essential batch synchronously for immediate paint
     for (let i = 0; i < unlockThreshold; i++) {
       loadImage(i);
     }
 
-    // Lazy load the remaining frames asynchronously in staggered micro-batches to prevent main-thread locking
+    // Ultra-lightweight background queuing for M1 optimization (fixes thread locking)
     if (targetFrames > unlockThreshold) {
        let currentIndex = unlockThreshold;
        
        const loadNextBatch = () => {
           if (currentIndex >= targetFrames) return;
           
-          const end = Math.min(currentIndex + 5, targetFrames);
+          // Requesting only 2 images at a time (vs 5) prevents M1 memory pooling
+          const end = Math.min(currentIndex + 2, targetFrames);
           for (let i = currentIndex; i < end; i++) {
             loadImage(i);
           }
           currentIndex = end;
-          setTimeout(loadNextBatch, 50); // 50ms delay between 5-frame chunks to let DOM paint smoothly
+          // 150ms buffer strictly respects main thread 60fps painting overhead
+          setTimeout(loadNextBatch, 150); 
        };
 
        setTimeout(loadNextBatch, 500); 
@@ -108,78 +110,76 @@ export default function CanvasSequence({
     return () => clearTimeout(safetyTimeout);
   }, [urlPattern, maxFrameCount, startIndex, padding]);
 
-  // Render Engine
+  // Pure rAF Polling Render Engine (replaces .on("change") for extreme M1 performance)
   useEffect(() => {
     if (useFallback) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false }); // Drop alpha channel for perf
     if (!ctx) return;
 
-    const render = () => {
-      if (images.length === 0) return;
-      const currentFrame = Math.floor(frameIndex.get());
-      const safeIndex = Math.min(Math.max(currentFrame, 0), frameCount - 1);
-      
-      const img = images[safeIndex];
+    let animationFrameId: number;
+    let lastRenderedFrame = -1;
 
-      // Extremely safe fallback: if frame isn't loaded due to lazy-loading, it just natively skips the clearRect 
-      // and holds the previous perfect frame, guaranteeing zero black screen flashes.
-      if (img && img.complete) {
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const imgWidth = img.naturalWidth;
-        const imgHeight = img.naturalHeight;
-
-        if (imgWidth === 0 || imgHeight === 0) return;
-
-        const canvasAspect = canvasWidth / canvasHeight;
-        const imgAspect = imgWidth / imgHeight;
+    const renderTick = () => {
+      if (images.length > 0) {
+        const currentFrame = Math.floor(frameIndex.get());
+        const safeIndex = Math.min(Math.max(currentFrame, 0), frameCount - 1);
         
-        let drawWidth, drawHeight, offsetX, offsetY;
+        // Only trigger an expensive GPU draw if the frame actually changed
+        if (safeIndex !== lastRenderedFrame) {
+          const img = images[safeIndex];
 
-        if (canvasAspect > imgAspect) {
-          drawWidth = canvasWidth;
-          drawHeight = canvasWidth / imgAspect;
-          offsetX = 0;
-          offsetY = (canvasHeight - drawHeight) / 2;
-        } else {
-          drawWidth = canvasHeight * imgAspect;
-          drawHeight = canvasHeight;
-          offsetX = (canvasWidth - drawWidth) / 2;
-          offsetY = 0;
+          // Guarantee we don't flash to a blank canvas if lazy-load hasn't cached this yet
+          if (img && img.complete) {
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const imgWidth = img.naturalWidth;
+            const imgHeight = img.naturalHeight;
+
+            if (imgWidth > 0 && imgHeight > 0) {
+              const canvasAspect = canvasWidth / canvasHeight;
+              const imgAspect = imgWidth / imgHeight;
+              
+              let drawWidth, drawHeight, offsetX, offsetY;
+
+              if (canvasAspect > imgAspect) {
+                drawWidth = canvasWidth;
+                drawHeight = canvasWidth / imgAspect;
+                offsetX = 0;
+                offsetY = (canvasHeight - drawHeight) / 2;
+              } else {
+                drawWidth = canvasHeight * imgAspect;
+                drawHeight = canvasHeight;
+                offsetX = (canvasWidth - drawWidth) / 2;
+                offsetY = 0;
+              }
+
+              ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+              lastRenderedFrame = safeIndex;
+            }
+          }
         }
-
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
       }
+      animationFrameId = requestAnimationFrame(renderTick);
     };
 
-    const unsubscribe = frameIndex.on("change", () => {
-      requestAnimationFrame(render);
-    });
-    
-    const initialRenderTimer = setInterval(() => {
-      if (images[0] && images[0].complete) {
-        render();
-        clearInterval(initialRenderTimer);
-      }
-    }, 100);
+    // Kickoff pure rendering loop
+    renderTick();
 
     const handleResize = () => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
-      render();
+      lastRenderedFrame = -1; // Force a repaint on resize
     };
 
     window.addEventListener("resize", handleResize);
     handleResize();
 
     return () => {
-      unsubscribe();
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
-      clearInterval(initialRenderTimer);
     };
   }, [images, frameIndex, frameCount, useFallback]);
 
@@ -187,7 +187,8 @@ export default function CanvasSequence({
     <div className="fixed inset-0 z-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center">
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-cover"
+        // scale-[1.08] crops out the "Nano Banana" watermark cleanly
+        className="w-full h-full object-cover transform scale-[1.08] origin-center"
       />
       
       {isLoading && (
