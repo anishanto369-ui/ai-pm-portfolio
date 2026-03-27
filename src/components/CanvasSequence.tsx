@@ -25,7 +25,7 @@ export default function CanvasSequence({
 
   const { scrollYProgress } = useScroll();
   
-  // Refined 'Buttery Smooth' Lerp Physics for Mobile Touch Interpolation
+  // Refined 'Buttery Smooth' Lerp Physics
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
     damping: 25,
@@ -40,41 +40,39 @@ export default function CanvasSequence({
   );
 
   useEffect(() => {
-    // Dual-Track Payload Frame Logic
+    // 1. Array Constraints
     const isMobileTrack = window.innerWidth < 1024;
     const targetFrames = isMobileTrack ? Math.min(80, maxFrameCount) : maxFrameCount;
     setFrameCount(targetFrames);
 
+    // 2. Lazy-Loading Threshold (Unblock desktop UI at 40 frames)
+    const unlockThreshold = isMobileTrack ? targetFrames : Math.min(40, targetFrames);
+
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
-    let fallbackTriggered = false;
-
-    // Safety timeout
+    
+    // Safety Force-Unlock
     const safetyTimeout = setTimeout(() => {
-       if (loadedCount < targetFrames * 0.5) {
-          setUseFallback(true);
-          setIsLoading(false);
-          fallbackTriggered = true;
-       } else {
-          setIsLoading(false); 
-       }
+       setIsLoading(false);
     }, 8000);
 
     const loadImage = (index: number) => {
-      if (fallbackTriggered) return;
       const img = new Image();
       const frameNumber = index + startIndex;
       const paddedIndex = frameNumber.toString().padStart(padding, '0');
       img.src = urlPattern.replace("{index}", paddedIndex);
       
       img.onload = () => {
-        if (fallbackTriggered) return;
         loadedCount++;
         
-        const percent = Math.floor((loadedCount / targetFrames) * 100);
-        setLoadProgress(percent);
+        // Progress UI only tracks up to the unblock threshold
+        if (loadedCount <= unlockThreshold) {
+           const percent = Math.floor((loadedCount / unlockThreshold) * 100);
+           setLoadProgress(percent);
+        }
 
-        if (loadedCount === targetFrames) {
+        // Fast-Unlock the UI instantly
+        if (loadedCount === unlockThreshold) {
           clearTimeout(safetyTimeout);
           setIsLoading(false);
         }
@@ -83,8 +81,18 @@ export default function CanvasSequence({
       loadedImages[index] = img;
     };
 
-    for (let i = 0; i < targetFrames; i++) {
+    // Load initial essential batch
+    for (let i = 0; i < unlockThreshold; i++) {
       loadImage(i);
+    }
+
+    // Lazy load the remaining frames asynchronously
+    if (targetFrames > unlockThreshold) {
+       setTimeout(() => {
+          for (let i = unlockThreshold; i < targetFrames; i++) {
+            loadImage(i);
+          }
+       }, 500); // 500ms delay to give the browser thread breathing room
     }
     
     setImages(loadedImages);
@@ -106,6 +114,8 @@ export default function CanvasSequence({
       
       const img = images[safeIndex];
 
+      // Extremely safe fallback: if frame isn't loaded due to lazy-loading, it just natively skips the clearRect 
+      // and holds the previous perfect frame, guaranteeing zero black screen flashes.
       if (img && img.complete) {
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
@@ -164,21 +174,12 @@ export default function CanvasSequence({
     };
   }, [images, frameIndex, frameCount, useFallback]);
 
-  const fallbackImageUrl = urlPattern.replace("{index}", startIndex.toString().padStart(padding, '0'));
-
   return (
     <div className="fixed inset-0 z-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center">
-      {useFallback ? (
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100"
-          style={{ backgroundImage: `url(${fallbackImageUrl})` }}
-        />
-      ) : (
-        <canvas
-          ref={canvasRef}
-          className="w-full h-full object-cover"
-        />
-      )}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full object-cover"
+      />
       
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-50 backdrop-blur-xl">
@@ -189,7 +190,7 @@ export default function CanvasSequence({
               </div>
               <p className="text-[10px] md:text-xs font-mono font-bold tracking-[0.4em] uppercase text-orange-500/80 drop-shadow-md text-center max-w-[200px] md:max-w-xs">
                  Loading Cinematic Engine
-                 <span className="block mt-3 opacity-50 text-[8px] tracking-[0.2em]">Fetching {frameCount} optimized frames</span>
+                 <span className="block mt-3 opacity-50 text-[8px] tracking-[0.2em] animate-pulse">Establishing Render Buffer...</span>
               </p>
            </div>
         </div>

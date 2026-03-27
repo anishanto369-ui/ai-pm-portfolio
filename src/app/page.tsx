@@ -24,7 +24,7 @@ function AnimatedMetric({ value, suffix = "%" }: { value: number; suffix?: strin
   useEffect(() => {
     if (isInView) {
       let start = 0;
-      const duration = 1500; // ms
+      const duration = 1500; 
       const increment = value / (duration / 16); 
       
       const timer = setInterval(() => {
@@ -59,22 +59,29 @@ export default function Home() {
          
          {/* --- MOBILE VIEW: Thumb-Optimized Taller Hitbox --- */}
          <div className="flex md:hidden w-full items-center justify-between px-3 py-1.5">
-            <div className="flex flex-col items-center text-center">
-               <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-base drop-shadow-md">Anish Anto</span>
-               <span className="text-[9px] font-mono text-green-400 uppercase tracking-widest mt-0.5">Available</span>
+            <div className="flex flex-col items-start w-1/3">
+               <span className="font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-wide text-sm drop-shadow-md whitespace-nowrap">Anish Anto</span>
             </div>
-            <div className="flex gap-2">
+            
+            <div className="flex items-center gap-1.5 overflow-x-auto w-2/3 justify-end hide-scrollbar">
+               <a 
+                 href="https://linkedin.com/in/anish-anto-ai" 
+                 target="_blank"
+                 className="p-3 bg-white/10 border border-white/20 text-white rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center shrink-0"
+               >
+                  <Linkedin className="w-3.5 h-3.5" />
+               </a>
                <a 
                  href="/Anish_Anto_Resume.pdf" 
                  download
-                 className="p-3 bg-white/10 border border-white/20 text-white rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center"
+                 className="px-3 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] font-bold font-mono tracking-widest uppercase rounded-2xl shadow-lg active:scale-95 transition-all flex items-center gap-1.5 shrink-0"
                >
-                  <Download className="w-4 h-4" />
+                  <Download className="w-3 h-3" /> CV
                </a>
                <a 
                  href="https://wa.me/971521379125" 
                  target="_blank"
-                 className="px-6 py-3.5 bg-white text-black text-xs font-bold font-mono tracking-widest uppercase rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.3)] active:scale-95 transition-all text-center flex items-center justify-center"
+                 className="px-4 py-3 bg-white text-black text-[9px] font-bold font-mono tracking-widest uppercase rounded-2xl shadow-[0_0_15px_rgba(255,255,255,0.3)] active:scale-95 transition-all flex items-center justify-center shrink-0"
                >
                   Hire Me
                </a>
@@ -119,10 +126,10 @@ export default function Home() {
             <a 
               href="/Anish_Anto_Resume.pdf" 
               download
-              className="px-4 lg:px-6 py-2.5 lg:py-3 bg-white/10 border border-white/20 text-white text-[10px] lg:text-xs font-bold font-mono tracking-widest uppercase rounded-full hover:bg-white/20 hover:scale-105 active:scale-95 transition-all text-center flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+              className="px-4 lg:px-6 py-2.5 lg:py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] lg:text-xs font-bold font-mono tracking-widest uppercase rounded-full hover:scale-105 active:scale-95 transition-all text-center flex items-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
             >
-               <FileText className="w-3 h-3 lg:w-4 lg:h-4" />
-               <span>ATS Resume</span>
+               <Download className="w-3 h-3 lg:w-4 lg:h-4" />
+               <span>Download ATS Resume</span>
             </a>
 
             <a 
@@ -158,7 +165,7 @@ export default function Home() {
 
         {/* --- 2. QANUN AI --- */}
         <section className="flex h-screen w-full items-center justify-center md:justify-start px-6 md:px-16 lg:px-32 xl:px-48">
-          <div className="max-w-4xl space-y-6 md:space-y-8 text-center md:text-left w-full flex flex-col items-center md:items-start">
+          <div className="max-w-4xl space-y-4 md:space-y-6 text-center md:text-left w-full flex flex-col items-center md:items-start">
             
             <div className="flex flex-col md:flex-row items-center gap-3">
                <span className="text-[8px] md:text-[10px] lg:text-xs font-bold bg-blue-500/20 text-blue-300 px-3 py-1.5 md:px-4 md:py-2 rounded-full uppercase tracking-[0.3em] font-mono shadow-xl border border-blue-500/30">The Flagship</span>
@@ -168,14 +175,18 @@ export default function Home() {
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
                   </div>
                   <Shield className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                  <span className="text-[8px] md:text-[10px] lg:text-xs font-mono font-bold uppercase tracking-widest">Locally Hosted Sandbox</span>
+                  <span className="text-[8px] md:text-[10px] lg:text-xs font-mono font-bold uppercase tracking-widest">Local Data</span>
                </div>
             </div>
 
-            <h2 className="text-5xl md:text-7xl lg:text-9xl font-serif font-bold tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] break-words w-full">
-              Qanun AI
-            </h2>
-            <p className="text-xl md:text-3xl lg:text-4xl font-light leading-tight text-white/95 drop-shadow-xl max-w-3xl">
+            <div className="space-y-2 md:space-y-3 w-full">
+               <h2 className="text-5xl md:text-7xl lg:text-9xl font-serif font-bold tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] break-words w-full">
+                 Qanun AI
+               </h2>
+               <p className="text-orange-400 font-mono text-[9px] md:text-[11px] lg:text-sm tracking-[0.2em] uppercase font-bold drop-shadow-md">Engineered for FTA & CBUAE AML Compliance.</p>
+            </div>
+
+            <p className="text-xl md:text-3xl lg:text-4xl font-light leading-tight text-white/95 drop-shadow-xl max-w-3xl pt-2">
               Locally-hosted UAE Finance & Compliance AI. <br className="hidden md:block"/>Built with <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LLAMA 3.3</span> and <span className="font-serif italic text-2xl md:text-4xl lg:text-5xl font-medium">LangGraph</span> for air-gapped UAE compliance.
             </p>
             <div className="flex flex-col gap-3 md:gap-4 font-mono text-[10px] md:text-xs lg:text-sm uppercase tracking-widest pt-2 md:pt-4 w-full">
@@ -289,8 +300,8 @@ export default function Home() {
                   <ul className="space-y-3 md:space-y-5 font-serif text-lg md:text-xl lg:text-2xl text-white drop-shadow-md">
                      <li>Python & React.js</li>
                      <li>Next.js & FastAPI</li>
-                     <li>LangGraph & LangChain</li>
-                     <li>Docker & Postgres</li>
+                     <li>LangGraph & Ollama</li>
+                     <li>Docker & HedgeLogic</li>
                   </ul>
                </div>
             </div>
