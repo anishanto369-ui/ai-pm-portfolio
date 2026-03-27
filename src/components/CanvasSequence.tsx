@@ -25,10 +25,12 @@ export default function CanvasSequence({
 
   const { scrollYProgress } = useScroll();
   
+  // Refined 'Buttery Smooth' Lerp Physics for Mobile Touch Interpolation
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
+    stiffness: 80,
+    damping: 25,
+    mass: 0.5,
+    restDelta: 0.0001
   });
 
   const frameIndex = useTransform(
@@ -38,8 +40,7 @@ export default function CanvasSequence({
   );
 
   useEffect(() => {
-    // 1. Dual-Track Payload Frame Logic
-    // iPad/Mobile (<1024px): 80 Frames. Desktop: Full 192 Frames.
+    // Dual-Track Payload Frame Logic
     const isMobileTrack = window.innerWidth < 1024;
     const targetFrames = isMobileTrack ? Math.min(80, maxFrameCount) : maxFrameCount;
     setFrameCount(targetFrames);
@@ -48,14 +49,14 @@ export default function CanvasSequence({
     let loadedCount = 0;
     let fallbackTriggered = false;
 
-    // Safety timeout: 8 seconds network timeout before unblocking the UI softly
+    // Safety timeout
     const safetyTimeout = setTimeout(() => {
        if (loadedCount < targetFrames * 0.5) {
           setUseFallback(true);
           setIsLoading(false);
           fallbackTriggered = true;
        } else {
-          setIsLoading(false); // Let it finish loading softly underneath
+          setIsLoading(false); 
        }
     }, 8000);
 
@@ -70,7 +71,6 @@ export default function CanvasSequence({
         if (fallbackTriggered) return;
         loadedCount++;
         
-        // 2. Exact loading percentage mapping
         const percent = Math.floor((loadedCount / targetFrames) * 100);
         setLoadProgress(percent);
 
@@ -80,7 +80,6 @@ export default function CanvasSequence({
         }
       };
       
-      // Slot strictly at exact index to preserve cinematic scroll alignment
       loadedImages[index] = img;
     };
 
@@ -92,7 +91,7 @@ export default function CanvasSequence({
     return () => clearTimeout(safetyTimeout);
   }, [urlPattern, maxFrameCount, startIndex, padding]);
 
-  // 3. Desktop & Mobile Shared Rendering Engine
+  // Render Engine
   useEffect(() => {
     if (useFallback) return;
     const canvas = canvasRef.current;
@@ -190,7 +189,7 @@ export default function CanvasSequence({
               </div>
               <p className="text-[10px] md:text-xs font-mono font-bold tracking-[0.4em] uppercase text-orange-500/80 drop-shadow-md text-center max-w-[200px] md:max-w-xs">
                  Loading Cinematic Engine
-                 <span className="block mt-3 opacity-50 text-[8px] tracking-[0.2em]">Fetching {frameCount} optimized WebP boundary frames</span>
+                 <span className="block mt-3 opacity-50 text-[8px] tracking-[0.2em]">Fetching {frameCount} optimized frames</span>
               </p>
            </div>
         </div>
