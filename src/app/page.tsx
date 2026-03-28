@@ -128,15 +128,15 @@ export default function Home() {
             </div>
             
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 w-full text-[10px] text-white/80 font-mono">
-               <a href="#" className="flex items-center gap-1.5"><MapPin className="w-3 h-3 opacity-70" /> Ras Al Khaimah</a>
+               <div className="flex items-center gap-1.5"><MapPin className="w-3 h-3 opacity-70" /> Ras Al Khaimah</div>
                <a href="tel:+971521379125" className="flex items-center gap-1.5"><Phone className="w-3 h-3 opacity-70" /> +971 521 379 125</a>
             </div>
 
             <div className="grid grid-cols-2 gap-3 w-full mt-1">
-               <a href="/resume.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white">
+               <a href="/Anish_Anto_AI_PM.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white active:scale-95 transition-transform">
                  <Download className="w-3.5 h-3.5" /> CV
                </a>
-               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg">
+               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-transform">
                  Hire Me
                </a>
             </div>
@@ -155,23 +155,23 @@ export default function Home() {
             <div className="w-px h-10 bg-white/20 shrink-0" />
             <div className="flex items-center gap-5 lg:gap-8 min-w-max">
                <div className="flex flex-col justify-center gap-2 text-[10px] lg:text-xs font-mono text-white/80">
-                  <a href="#" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
+                  <div className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
                     <MapPin className="w-3.5 h-3.5 opacity-70" /> Ras Al Khaimah, UAE
-                  </a>
+                  </div>
                   <a href="tel:+971521379125" className="flex items-center gap-2.5 hover:text-orange-400 transition-colors">
                     <Phone className="w-3.5 h-3.5 opacity-70" /> +971 521 379 125
                   </a>
                </div>
                <div className="flex items-center gap-3">
                   <a href="mailto:anishanto369@gmail.com" className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-orange-500/20 hover:border-orange-500/30 text-white/80 transition-all"><Mail className="w-4 h-4" /></a>
-                  <a href="https://linkedin.com/in/anish-anto-ai" className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-orange-500/20 hover:border-orange-500/30 text-white/80 transition-all"><Linkedin className="w-4 h-4" /></a>
+                  <a href="https://linkedin.com/in/anish-anto-ai" target="_blank" className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-orange-500/20 hover:border-orange-500/30 text-white/80 transition-all"><Linkedin className="w-4 h-4" /></a>
                </div>
             </div>
             <div className="flex items-center gap-3 lg:gap-4 shrink-0">
-               <a href="/resume.pdf" download className="h-11 lg:h-12 px-5 lg:px-6 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl shadow-lg">
+               <a href="/Anish_Anto_AI_PM.pdf" download className="h-11 lg:h-12 px-5 lg:px-6 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl shadow-lg hover:scale-105 active:scale-95 transition-all">
                   <Download className="w-3.5 h-3.5 mr-2" /> Resume
                </a>
-               <a href="https://wa.me/971521379125" target="_blank" className="h-11 lg:h-12 px-7 lg:px-8 bg-white text-black text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl shadow-lg">
+               <a href="https://wa.me/971521379125" target="_blank" className="h-11 lg:h-12 px-7 lg:px-8 bg-white text-black text-[9px] lg:text-[10px] font-bold font-mono tracking-widest uppercase rounded-xl shadow-lg hover:bg-white/90 active:scale-95 transition-all">
                   Hire Me
                </a>
             </div>
