@@ -133,10 +133,10 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 w-full mt-1">
-               <a href="/Anish_Anto_AI_PM.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white active:scale-95 transition-transform">
+               <a href="/Anish_Anto_AI_PM.pdf" download className="h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg text-white">
                  <Download className="w-3.5 h-3.5" /> CV
                </a>
-               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-transform">
+               <a href="https://wa.me/971521379125" target="_blank" className="h-10 flex items-center justify-center bg-white text-black rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest shadow-lg">
                  Hire Me
                </a>
             </div>
@@ -180,14 +180,14 @@ export default function Home() {
 
       <div className="relative z-10 flex flex-col items-center w-full">
         
-        {/* --- HERO --- */}
+        {/* --- 1. HERO --- */}
         <section className="flex h-screen w-full flex-col items-center justify-center px-4 text-center">
           <h1 className="text-5xl md:text-9xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Anish Anto</h1>
           <p className="mt-8 text-xs md:text-xl font-mono uppercase tracking-[0.25em]">AI Product Manager | Full-Stack AI Builder</p>
           <div className="absolute bottom-32 opacity-50 animate-bounce"><MoveDown className="h-8 w-8" /></div>
         </section>
 
-        {/* --- QANUN AI --- */}
+        {/* --- 2. QANUN AI (LEFT ALIGNED) --- */}
         <section className="flex min-h-screen w-full items-center justify-center md:justify-start px-6 md:px-32 py-24">
           <div className="max-w-4xl space-y-6 flex flex-col items-center md:items-start">
             <span className="text-[10px] font-bold bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-blue-500/30">The Flagship</span>
@@ -200,7 +200,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- LOOMIN-DOCS V2.0 --- */}
+        {/* --- 3. LOOMIN-DOCS V2.0 (RIGHT ALIGNED) --- */}
         <section className="flex min-h-screen w-full items-center justify-center md:justify-end px-6 md:px-32 py-24">
           <div className="max-w-4xl space-y-6 text-center md:text-right flex flex-col items-center md:items-end">
             <span className="text-[10px] font-bold bg-orange-500/20 text-orange-400 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-orange-500/30">Sovereign Architecture</span>
@@ -218,34 +218,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- DOCUMIND --- */}
+        {/* --- 4. DOCUMIND (LEFT ALIGNED) --- */}
         <section className="flex h-screen w-full items-center justify-center md:justify-start px-6 md:px-32">
           <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-start">
             <span className="text-[10px] font-bold bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-purple-500/30">Enterprise SaaS</span>
-            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 leading-none">DocuMind</h2>
-            <p className="text-xl md:text-4xl font-light text-white/95">Enterprise RAG SaaS for regulated sectors with zero-downtime CI/CD.</p>
+            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 leading-none text-left">DocuMind</h2>
+            <p className="text-xl md:text-4xl font-light text-white/95 text-left">Enterprise RAG SaaS for regulated sectors with zero-downtime CI/CD.</p>
           </div>
         </section>
 
-        {/* --- ARIA & ATS BUILDER --- */}
+        {/* --- 5. ARIA & ATS BUILDER (RIGHT ALIGNED) --- */}
         <section className="flex min-h-[150vh] w-full flex-col justify-center px-6 md:px-32 gap-40 py-24">
-          <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-start">
+          <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-end ml-auto">
             <span className="text-[10px] font-bold bg-zinc-800 border border-zinc-700 text-zinc-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono">Autonomous Agent</span>
-            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 leading-none">ARIA</h2>
-            <p className="text-xl md:text-4xl font-light text-white/95">Multi-agent orchestration with self-correcting reasoning loops.</p>
+            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500 leading-none text-right">ARIA</h2>
+            <p className="text-xl md:text-4xl font-light text-white/95 text-right">Multi-agent orchestration with self-correcting reasoning loops.</p>
           </div>
           
-          <div className="max-w-3xl space-y-8 text-center md:text-right flex flex-col items-center md:items-end pt-24 ml-auto w-full">
-             <h3 className="text-4xl md:text-8xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500">ATS Resume Builder</h3>
+          <div className="max-w-3xl space-y-8 text-center md:text-left flex flex-col items-center md:items-start pt-24 w-full">
+             <h3 className="text-4xl md:text-8xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">ATS Resume Builder</h3>
              <div className="flex items-center gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest">
-                 <AnimatedMetric value={80} /> reduction in creation time <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                <div className="w-2 h-2 bg-orange-500 rounded-full" /> <AnimatedMetric value={80} /> reduction in creation time 
              </div>
           </div>
         </section>
 
         <InteractivePortfolioSuite />
 
-        {/* --- SKILLS --- */}
+        {/* --- 6. SKILLS --- */}
         <motion.section 
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
           className="flex min-h-screen w-full items-center justify-center px-4 py-32 bg-black/40"
@@ -289,7 +289,7 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* --- EDUCATION --- */}
+        {/* --- 7. EDUCATION --- */}
         <motion.section 
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
           className="flex min-h-screen w-full flex-col items-center justify-center py-32 bg-black/60 border-t border-white/10"
