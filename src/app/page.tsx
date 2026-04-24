@@ -6,7 +6,7 @@ import InteractivePortfolioSuite from "@/components/InteractivePortfolioSuite";
 import VisionCloser from "@/components/VisionCloser";
 import AudioToggle from "@/components/AudioToggle";
 import { 
-  MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download
+  MoveDown, MapPin, Mail, Phone, Linkedin, Shield, Info, FileText, Download, Scale
 } from "lucide-react";
 import { motion, useInView, Variants, useScroll, useTransform } from "framer-motion";
 
@@ -100,7 +100,7 @@ export default function Home() {
   const lumoraMobileOpacity = useTransform(scrollYProgress, [0.985, 0.995], [0, 1]);
 
   return (
-    <main className="relative min-h-[2400vh] md:min-h-[1800vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
+    <main className="relative min-h-[2600vh] md:min-h-[2000vh] selection:bg-orange-500 selection:text-white bg-transparent text-white font-sans overflow-x-hidden scroll-smooth w-full">
       <CanvasSequence
         urlPattern="https://amcgxhzwjqcnkvaumtaa.supabase.co/storage/v1/object/public/hero-animation/frame_{index}_delay-0.04s.webp"
         frameCount={192}
@@ -114,6 +114,7 @@ export default function Home() {
          style={{ opacity: isMobile ? lumoraMobileOpacity : 1 }}
          className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex p-4 md:p-6 lg:px-10 lg:py-5 rounded-[2rem] md:rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,255,255,0.1)] w-[92%] sm:w-[90%] md:w-[calc(100%-48px)] max-w-6xl transition-all"
       >
+         {/* MOBILE VIEW */}
          <div className="flex flex-col md:hidden w-full items-center gap-3 py-1 relative">
             <div className="absolute top-0 left-0">
                <AudioToggle isReady={isEngineReady} />
@@ -136,6 +137,7 @@ export default function Home() {
             </div>
          </div>
 
+         {/* DESKTOP VIEW */}
          <div className="hidden md:flex flex-row items-center justify-between w-full h-full gap-4 lg:gap-8">
             <div className="flex items-center justify-center min-w-max">
                <AudioToggle isReady={isEngineReady} />
@@ -231,7 +233,7 @@ export default function Home() {
                <p className="text-red-500"># AEGIS: Threat Interception Active</p>
                <p className="text-white/40">{`> Monitoring Prompt Buffer... [SCANNING]`}</p>
                <p className="text-orange-500 font-bold">{`> Sensitive Data Detected: [REDACTED]`}</p>
-               <p className="text-green-500 font-bold">{`> Payload Cleaned. Routing to Public Node... [SUCCESS]`}</p>
+               <p className="text-green-500 font-bold">{`> Payload Cleaned. Routing... [SUCCESS]`}</p>
             </div>
             <div className="flex items-center gap-3 font-mono text-xs md:text-sm uppercase tracking-widest pt-6 font-bold text-white drop-shadow-lg">
                <div className="w-2 h-2 bg-orange-500 rounded-full" /> Unblocking Enterprise AI Enablement
@@ -239,36 +241,51 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- 5. DOCUMIND (RIGHT) --- */}
-        <section className="flex h-screen w-full items-center justify-center md:justify-end px-6 md:px-32 py-24">
-          <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-end text-right">
-            <span className="text-[10px] font-bold bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-purple-500/30 shadow-xl">Enterprise SaaS</span>
-            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500 leading-none drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">DocuMind</h2>
-            <p className="text-xl md:text-4xl font-light text-white/95 drop-shadow-xl">Enterprise RAG SaaS for regulated sectors with zero-downtime CI/CD.</p>
-            <div className="flex items-center justify-center md:justify-end gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest drop-shadow-lg">
-               Scalable vector search for documentation <div className="w-2 h-2 bg-orange-500 rounded-full" />
+        {/* --- 5. COMPLIANCE ORACLE (RIGHT) --- */}
+        <section className="flex min-h-screen w-full items-center justify-center md:justify-end px-6 md:px-32 py-24">
+          <div className="max-w-4xl space-y-6 text-center md:text-right flex flex-col items-center md:items-end">
+            <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-amber-500/30 shadow-xl">Institutional GRC</span>
+            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500 leading-none drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">Compliance Oracle</h2>
+            <p className="text-xl md:text-4xl font-light text-white/95 max-w-2xl drop-shadow-xl">Sovereign Multi-Agent GRC Engine for UAE 2026 Regulatory Landscapes.</p>
+            <div className="w-full max-w-lg mt-8 bg-black/40 border border-white/10 rounded-2xl p-6 text-left font-mono text-[10px] md:text-xs text-amber-400 shadow-2xl backdrop-blur-xl">
+               <p className="text-amber-500"># Cross-Referencing FTA / CBUAE Corpus...</p>
+               <p className="text-white/40">{`> Analyzing Proliferation Financing Mandates... [SYNC]`}</p>
+               <p className="text-white/40">{`> Redacting Financial Identifiers (Decree 45)... [ACTIVE]`}</p>
+               <p className="text-green-500 font-bold">{`> Audit Report Verified & Digitally Signed.`}</p>
+            </div>
+            <div className="flex items-center justify-center md:justify-end gap-3 font-mono text-xs md:text-sm uppercase tracking-widest pt-6 font-bold text-white drop-shadow-lg">
+               40-Hour Review automated to 60 Seconds <div className="w-2 h-2 bg-orange-500 rounded-full" />
             </div>
           </div>
         </section>
 
-        {/* --- 6. ARIA (LEFT) --- */}
-        <section className="flex min-h-screen w-full flex-col justify-center items-center md:items-start px-6 md:px-32 py-24">
+        {/* --- 6. DOCUMIND (LEFT) --- */}
+        <section className="flex h-screen w-full items-center justify-center md:justify-start px-6 md:px-32 py-24">
           <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-start text-left">
+            <span className="text-[10px] font-bold bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono border border-purple-500/30 shadow-xl">Enterprise SaaS</span>
+            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 leading-none drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">DocuMind</h2>
+            <p className="text-xl md:text-4xl font-light text-white/95 drop-shadow-xl">Enterprise RAG SaaS for regulated sectors with zero-downtime CI/CD.</p>
+          </div>
+        </section>
+
+        {/* --- 7. ARIA (RIGHT) --- */}
+        <section className="flex min-h-screen w-full flex-col justify-center items-center md:items-end px-6 md:px-32 py-24">
+          <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-end text-right">
             <span className="text-[10px] font-bold bg-zinc-800 border border-zinc-700 text-zinc-300 px-4 py-2 rounded-full uppercase tracking-widest font-mono shadow-xl">Autonomous Agent</span>
-            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 leading-none drop-shadow-[0_0_30_px_rgba(0,0,0,0.8)]">ARIA</h2>
+            <h2 className="text-5xl md:text-9xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500 leading-none drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">ARIA</h2>
             <p className="text-xl md:text-4xl font-light text-white/95 drop-shadow-xl">Multi-agent orchestration with self-correcting reasoning loops.</p>
-            <div className="flex items-center gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest drop-shadow-lg">
-               <div className="w-2 h-2 bg-orange-500 rounded-full" /> <AnimatedMetric value={40} /> reduction in LLM hallucinations
+            <div className="flex items-center justify-center md:justify-end gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest drop-shadow-lg">
+               <AnimatedMetric value={40} /> reduction in LLM hallucinations <div className="w-2 h-2 bg-orange-500 rounded-full" />
             </div>
           </div>
         </section>
 
-        {/* --- 7. ATS BUILDER (RIGHT) --- */}
-        <section className="flex min-h-screen w-full flex-col justify-center items-center md:items-end px-6 md:px-32 py-24">
-           <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-end text-right">
-             <h3 className="text-4xl md:text-8xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-orange-500 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">ATS Resume Builder</h3>
-             <div className="flex items-center justify-center md:justify-end gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest drop-shadow-lg">
-                <AnimatedMetric value={80} /> reduction in creation time <div className="w-2 h-2 bg-orange-500 rounded-full" />
+        {/* --- 8. ATS BUILDER (LEFT) --- */}
+        <section className="flex min-h-screen w-full flex-col justify-center items-center md:items-start px-6 md:px-32 py-24">
+           <div className="max-w-4xl space-y-8 flex flex-col items-center md:items-start text-left">
+             <h3 className="text-4xl md:text-8xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">ATS Resume Builder</h3>
+             <div className="flex items-center gap-3 text-white font-bold font-mono text-xs md:text-sm uppercase tracking-widest drop-shadow-lg">
+                <div className="w-2 h-2 bg-orange-500 rounded-full" /> <AnimatedMetric value={80} /> reduction in creation time 
              </div>
            </div>
         </section>
